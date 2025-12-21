@@ -1,8 +1,5 @@
 public class Stack
 {
-	private Node top;
-	private int height;
-	
 	class Node
 	{
 		int value;
@@ -14,6 +11,9 @@ public class Stack
 		}
 	}
 	
+	private Node top;
+	private int height;
+	
 	public Stack(int value)
 	{
 		Node newNode = new Node(value);
@@ -21,10 +21,10 @@ public class Stack
 		height = 1;
 	}
 	
-	public void push(int value) 
+	public void push(int value)
 	{
 		Node newNode = new Node(value);
-		if(height != 0)
+		if (height != 0)
 			newNode.next = top;
 		top = newNode;
 		height++;
@@ -37,7 +37,6 @@ public class Stack
 		Node temp = top;
 		top = top.next;
 		temp.next = null;
-
 		height--;
 		return temp;
 	}
@@ -45,12 +44,23 @@ public class Stack
 	public void printStack()
 	{
 		Node temp = top;
+		
 		while (temp != null)
 		{
 			System.out.print(temp.value + " ");
 			temp = temp.next;
 		}
 		System.out.println();
+	}
+	
+	public Node getTop()
+	{
+		return new Node(top.value);
+	}
+	
+	public int getHeight()
+	{
+		return height;
 	}
 	
 	public static void main(String[] args)

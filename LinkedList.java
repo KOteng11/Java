@@ -1,9 +1,5 @@
 public class LinkedList
 {
-	private Node head;
-	private Node tail;
-	private int length;
-	
 	class Node
 	{
 		int value;
@@ -14,6 +10,10 @@ public class LinkedList
 			this.value = value;
 		}
 	}
+	
+	private Node head;
+	private Node tail;
+	private int length;
 	
 	public LinkedList(int value)
 	{
@@ -26,27 +26,39 @@ public class LinkedList
 	public LinkedList(LinkedList other)
 	{
 		this(other.head.value);
-		Node cur = other.head;
-		while (cur.next != null)
+		//if (this.head == null)
+		//	throw new NullPointerException("LinkedList is empty.");
+		Node temp = other.head;
+		for (int i = 1; i < other.length; i++)
 		{
-			cur = cur.next;
-			append(cur.value);
+			temp = temp.next;
+			append(temp.value);
 		}
+	}
+	
+	public int getHead()
+	{
+		return head.value;
+	}
+	
+	public int getTail()
+	{
+		return tail.value;
+	}
+	
+	public int getLength()
+	{
+		return length;
 	}
 	
 	public void append(int value)
 	{
 		Node newNode = new Node(value);
 		if (length == 0)
-		{
 			head = newNode;
-			tail = newNode;
-		}
 		else
-		{
 			tail.next = newNode;
-			tail = newNode;
-		}
+		tail = newNode;
 		length++;
 	}
 	
@@ -54,33 +66,35 @@ public class LinkedList
 	{
 		Node newNode = new Node(value);
 		if (length == 0)
-		{
-			head = newNode;
 			tail = newNode;
-		}
 		else
-		{
 			newNode.next = head;
-			head = newNode;
-		}
+		head = newNode;
 		length++;
+	}
+	
+	public void printList()
+	{
+		Node temp = head;
+		
+		while (temp != null)
+		{
+			System.out.print(temp.value + " ");
+			temp = temp.next;
+		}
+		System.out.println();
 	}
 	
 	public Node removeFirst()
 	{
 		if (length == 0)
 			return null;
+		
 		Node temp = head;
-		if (length == 1)
-		{
-			head = null;
+		head = head.next;
+		temp.next = null;
+		if (length == 0)
 			tail = null;
-		}
-		else
-		{
-			head = head.next;
-			temp.next = null;
-		}
 		length--;
 		return temp;
 	}
@@ -90,23 +104,15 @@ public class LinkedList
 		if (length == 0)
 			return null;
 		Node temp = head;
-		if (length == 1)
+		Node prev = head;
+		
+		while (temp.next != null)
 		{
-			head = null;
-			tail = null;
+			prev = temp;
+			temp = temp.next;
 		}
-		else
-		{
-			Node prev = head;
-			
-			while (temp.next != null)
-			{
-				prev = temp;
-				temp = temp.next;
-			}
-			tail = prev;
-			prev.next = null;
-		}
+		tail = prev;
+		tail.next = null;
 		length--;
 		return temp;
 	}
@@ -116,7 +122,6 @@ public class LinkedList
 		if (index < 0 || index >= length)
 			return null;
 		Node temp = head;
-		
 		for (int i = 0; i < index; i++)
 			temp = temp.next;
 		
@@ -125,8 +130,6 @@ public class LinkedList
 	
 	public boolean set(int index, int value)
 	{
-		if (index < 0 || index >= length)
-			return false;
 		Node temp = get(index);
 		if (temp != null)
 		{
@@ -150,13 +153,11 @@ public class LinkedList
 			append(value);
 			return true;
 		}
-		
 		Node newNode = new Node(value);
-		Node prev = get(index - 1);
-		newNode.next = prev.next;
-		prev.next = newNode;
+		Node temp = get(index - 1);
+		newNode.next = temp.next;
+		temp.next = newNode;
 		length++;
-		
 		return true;
 	}
 	
@@ -164,9 +165,9 @@ public class LinkedList
 	{
 		if (index < 0 || index >= length)
 			return null;
-		if (index == 0)
+		if (length == 0)
 			return removeFirst();
-		if (index == length - 1)
+		if (length == length - 1)
 			return removeLast();
 		Node prev = get(index - 1);
 		Node temp = prev.next;
@@ -174,68 +175,35 @@ public class LinkedList
 		temp.next = null;
 		length--;
 		return temp;
-		
 	}
 	
 	public void reverse()
 	{
 		Node temp = head;
-		head =  tail;
+		head = tail;
 		tail = temp;
 		Node after = temp.next;
 		Node before = null;
 		
-		for(int i = 0; i < length; i++)
+		for (int i = 0; i < length; i++)
 		{
 			after = temp.next;
 			temp.next = before;
 			before = temp;
 			temp = after;
-		}	
-	}
-	
-	public Node findMiddleNode()
-	{
-		Node fast = head;
-		Node slow = head;
-		
-		while (fast != null && fast.next != null)
-		{
-			fast = fast.next.next;
-			slow = slow.next;
 		}
-		
-		return slow;
-	}
-	
-	public void printList()
-	{
-		Node temp = head;
-		
-		while (temp != null)
-		{
-			System.out.print(temp.value + " ");
-			temp = temp.next;
-		}
-		System.out.println();
 	}
 	
 	public static void main(String[] args)
 	{
-		LinkedList myList = new LinkedList(2);
-		myList.append(3);
-		myList.prepend(1);
-		myList.set(1, 15);
-		myList.insert(0, 0);
-		myList.insert(4, 4);
-		myList.insert(2, 5);
-		myList.printList();
-		System.out.println(myList.findMiddleNode().value);
-
-		/**
-		for (int i = 0; i < 3; i++)
-		{
-			System.out.println(myList.get(i).value);
-		}**/
+		LinkedList ll = new LinkedList(2);
+		ll.append(3);
+		ll.prepend(1);
+		ll.insert(1, 6);
+		ll.insert(2, 7);
+		
+		System.out.println(ll);
+		LinkedList myList = new LinkedList(ll);
+		System.out.println(myList);
 	}
 }
