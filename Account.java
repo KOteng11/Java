@@ -42,9 +42,12 @@ public class Account
 	{
 		return name;
 	}
+<<<<<<< HEAD
 	
 	public String toString()
 	{
 		return String.format("%s balance: $%.2f%n", getName(), getBalance());
 	}
+=======
+>>>>>>> 883333484ec051721b3b65f2c2522b1d1545f492
 }
