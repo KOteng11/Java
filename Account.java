@@ -42,4 +42,9 @@ public class Account
 	{
 		return name;
 	}
+	
+	public String toString()
+	{
+		return String.format("%s balance: $%.2f%n", getName(), getBalance());
+	}
 }
