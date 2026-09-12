@@ -2,16 +2,18 @@ package datastructures;
 
 import interfaces.ListInterface;
 
-public class LinkedList<E> implements ListInterface<E>
+public class DoublyLinkedList<E> implements ListInterface<E>
 {
     class Node<E>
     {
         E value;
         Node<E> next;
+        Node<E> prev;
         
         Node(E value){
             this.value = value;
             next = null;
+            prev = null;
         }
     }
     
@@ -20,14 +22,14 @@ public class LinkedList<E> implements ListInterface<E>
     private int length;
     
     // No-args constructor
-    public LinkedList(){
+    public DoublyLinkedList(){
         head = null;
         tail = null;
         length = 0;
     }
     
     // Constructor with args
-    public LinkedList(E value){
+    public DoublyLinkedList(E value){
         Node<E> newNode = new Node<>(value);
         head = newNode;
         tail = newNode;
