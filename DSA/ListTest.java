@@ -13,13 +13,77 @@ public class ListTest
     
     @Before
     public void init(){
-        ll = new DoublyLinkedList<>();
+        ll = new LinkedList<>();
     }
     
     @Test
-    public void testAddLast_throwsException(){
-        assertThrows(UnsupportedOperationException.class, () -> {
-            ll.addLast(2);
+    public void testLengthEqualsZero(){
+        assertEquals(0, ll.length());
+        assertThrows(IndexOutOfBoundsException.class, ()->{
+            ll.get(0);
         });
+    }
+    
+    @Test
+    public void testLengthEqualsOne(){
+        ll.addLast(5);
+        assertEquals(1, ll.length());
+    }
+    
+    @Test
+    public void testLengthEqualsTwenty(){
+        for(int i = 0; i < 20; i++){
+            ll.addLast(i + 10);
+        }
+        assertEquals(20, ll.length());
+    }
+    
+    @Test
+    public void testClear(){
+        ll.addLast(2);
+        ll.addLast(10);
+        ll.clear();
+        assertEquals(0, ll.length());
+        assertThrows(IndexOutOfBoundsException.class, ()->{
+            ll.get(0);
+        });
+    }
+    
+    @Test
+    public void testGet_NegativeIndex(){
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+             ll.get(-1);
+         });
+    }
+    
+    @Test
+    public void testGet_IndexGreaterThanOrEqualLength(){
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+             ll.get(1);
+         });
+    }
+    
+    @Test
+    public void testGet(){
+        ll.addLast(2);
+        ll.addLast(3);
+        ll.addLast(15);
+        assertEquals(Integer.valueOf(3), ll.get(1));
+    }
+    
+    @Test
+    public void testAddLast(){
+        ll.addLast(2);
+        ll.addLast(9);
+        ll.addLast(15);
+        assertEquals(Integer.valueOf(15), ll.get(ll.length() - 1));
+    }
+    
+    @Test
+    public void testAddFirst(){
+        ll.addFirst(2);
+        ll.addFirst(9);
+        ll.addFirst(15);
+        assertEquals(Integer.valueOf(9), ll.get(1));
     }
 }

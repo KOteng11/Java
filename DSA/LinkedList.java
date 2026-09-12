@@ -38,14 +38,16 @@ public class LinkedList<E> implements ListInterface<E>
         clear method removes all the elements from this list
     */
     public void clear(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        head = null;
+        tail = null;
+        length = 0;
     }
 
     /**
         length method returns the number of elements in this list
     */
     public int length(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        return length;
     }
 
     /**
@@ -61,7 +63,15 @@ public class LinkedList<E> implements ListInterface<E>
         @param e The element to be added to the end of the list
     */
     public void addLast(E e){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        Node<E> newNode = new Node<>(e);
+        if (length == 0){
+            head = newNode;
+            tail = newNode;
+        }else{
+            tail.next = newNode;
+            tail = newNode;
+        }
+        length++;
     }
     
     /**
@@ -69,7 +79,15 @@ public class LinkedList<E> implements ListInterface<E>
         @param e The element to be added to the beginning of the list
     */
     public void addFirst(E e){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        Node<E> newNode = new Node<>(e);
+        if (length == 0){
+            head = newNode;
+            tail = newNode;
+        }else{
+            newNode.next = head;
+            head = newNode;
+        }
+        length++;
     }
 
     /**
@@ -102,9 +120,23 @@ public class LinkedList<E> implements ListInterface<E>
         The get method returns the element at the specified position in this list.
         Throws an exception if index is invalid.
         @param index The position of the list
+        @return The element at the specified position
+        @throws IndexOutOfBoundsException if index negative 0 or >= length
     */
     public E get(int index){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        return getNode(index).value;
+    }
+    
+    private Node<E> getNode(int index){
+        if (index < 0 || index >= length){
+            throw new IndexOutOfBoundsException("Invalid index.");
+        }
+        Node<E> temp = head;
+        for(int i = 0; i < index; i++){
+            temp = temp.next;
+        }
+        
+        return temp;
     }
     
     /**
