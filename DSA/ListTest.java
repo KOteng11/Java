@@ -6,6 +6,7 @@ import org.junit.Test;
 import interfaces.ListInterface;
 import interfaces.Collection;
 import datastructures.*;
+import java.util.NoSuchElementException;
 
 public class ListTest
 {
@@ -86,4 +87,28 @@ public class ListTest
         ll.addFirst(15);
         assertEquals(Integer.valueOf(9), ll.get(1));
     }
+    
+    @Test
+    public void testRemoveFirst_ListIsEmpty(){
+        assertThrows(NoSuchElementException.class, ()->{
+            ll.removeFirst();
+        });
+    }
+    
+    @Test
+    public void testRemoveFirst_OneElement(){
+        ll.addFirst(5);
+        assertEquals(Integer.valueOf(5), ll.removeFirst());
+        assertEquals(0, ll.length());
+    }
+    
+    @Test
+    public void testRemoveFirst_TwoElements(){
+        ll.addFirst(2);
+        ll.addLast(5);
+        assertEquals(Integer.valueOf(2), ll.removeFirst());
+        assertEquals(1, ll.length());
+        assertEquals(Integer.valueOf(0), ll.get(0));
+    }
+    
 }

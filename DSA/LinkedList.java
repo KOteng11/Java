@@ -1,6 +1,7 @@
 package datastructures;
 
 import interfaces.ListInterface;
+import java.util.NoSuchElementException;
 
 public class LinkedList<E> implements ListInterface<E>
 {
@@ -96,7 +97,20 @@ public class LinkedList<E> implements ListInterface<E>
         @return The first element from the list
     */
     public E removeFirst(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        if (length == 0){
+            throw new NoSuchElementException("LinkedList is empty.");
+        }
+        
+        Node<E> temp = head;
+        if (length == 1){
+            head = null;
+            tail = null;
+        }else{
+            head = head.next;
+        }
+        temp.next = null;
+        length--;
+        return temp.value;
     }
     
     /**
