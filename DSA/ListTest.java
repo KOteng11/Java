@@ -60,7 +60,7 @@ public class ListTest
     @Test
     public void testGet_IndexGreaterThanOrEqualLength(){
         assertThrows(IndexOutOfBoundsException.class, () -> {
-             ll.get(1);
+             ll.get(0);
          });
     }
     
@@ -108,7 +108,166 @@ public class ListTest
         ll.addLast(5);
         assertEquals(Integer.valueOf(2), ll.removeFirst());
         assertEquals(1, ll.length());
-        assertEquals(Integer.valueOf(0), ll.get(0));
+        assertEquals(Integer.valueOf(5), ll.get(0));
+    }
+
+    @Test 
+    public void testPollFirst_ListISEmpty(){
+        assertNull(ll.pollFirst());
     }
     
+    @Test
+    public void testPollFirst_OneElement(){
+        ll.addFirst(5);
+        assertEquals(Integer.valueOf(5), ll.get(0));
+        assertEquals(1, ll.length());
+        assertEquals(Integer.valueOf(5), ll.removeFirst());
+        assertEquals(0, ll.length());
+    }
+    
+    @Test
+    public void testPollFirst_TwoElements(){
+        ll.addFirst(2);
+        ll.addLast(5);
+        assertEquals(Integer.valueOf(2), ll.removeFirst());
+        assertEquals(1, ll.length());
+        assertEquals(Integer.valueOf(5), ll.get(0));
+    }
+    
+    @Test
+    public void testIsEmpty_AddOneElement(){
+        ll.addLast(2);
+        assertFalse(ll.isEmpty());
+        assertEquals(1, ll.length());
+    }
+    
+    @Test
+    public void testIsEmpty_NoElement(){
+        assertTrue(ll.isEmpty());
+    }
+    
+    @Test
+    public void testIsEmpty_RemoveOneElement(){
+        ll.addLast(3);
+        assertEquals(1, ll.length());
+        ll.removeFirst();
+        assertTrue(ll.isEmpty());
+        assertEquals(0, ll.length());
+    }
+    
+    @Test
+    public void testRemoveLast_ListIsEmpty(){
+        assertThrows(NoSuchElementException.class, ()->{
+            ll.removeLast();
+        });
+    }
+    
+    @Test
+    public void testRemoveLast_OneElement(){
+        ll.addFirst(2);
+        assertEquals(Integer.valueOf(2), ll.get(0));
+        assertEquals(1, ll.length());
+        assertEquals(Integer.valueOf(2), ll.removeLast());
+        assertEquals(0, ll.length());
+    }
+    
+    @Test
+    public void testRemoveLast_TwoElements(){
+        ll.addFirst(3);
+        ll.addLast(5);
+        assertEquals(2, ll.length());
+        assertEquals(Integer.valueOf(5), ll.removeLast());
+        assertEquals(1, ll.length());
+        assertEquals(Integer.valueOf(3), ll.get(0));
+    }
+    
+    @Test
+    public void testGetFirst_EmptyList(){
+        assertThrows(NoSuchElementException.class, ()->{
+            ll.getFirst();
+        });
+    }
+    
+    @Test
+    public void testGetFirst_OneElement(){
+        ll.addFirst(3);
+        assertEquals(Integer.valueOf(3), ll.getFirst());
+        assertEquals(1, ll.length());
+    }
+    
+    @Test
+    public void testGetFirst_TwoElements(){
+        ll.addFirst(3);
+        ll.addLast(5);
+        assertEquals(Integer.valueOf(3), ll.getFirst());
+        assertEquals(2, ll.length());
+    }
+    
+    @Test
+    public void testGetLast_EmptyList(){
+        assertThrows(NoSuchElementException.class, ()->{
+            ll.getLast();
+        });
+    }
+    
+    @Test
+    public void testGetLast_OneElement(){
+        ll.addLast(3);
+        assertEquals(Integer.valueOf(3), ll.getLast());
+        assertEquals(1, ll.length());
+    }
+    
+    @Test
+    public void testGetLast_TwoElements(){
+        ll.addLast(10);
+        ll.addFirst(7);
+        assertEquals(Integer.valueOf(10), ll.getLast());
+        assertEquals(2, ll.length());
+    }
+    
+    @Test
+    public void testSet_NegativeIndex(){
+        assertFalse(ll.set(-1, 10));
+    }
+    
+    @Test
+    public void testSet_IndexGreaterThanOrEqualLength(){
+        assertFalse(ll.set(0, 10));
+    }
+    
+    @Test
+    public void testSet(){
+        ll.addFirst(3);
+        ll.addLast(8);
+        ll.addLast(9);
+        assertEquals(Integer.valueOf(8), ll.get(1));
+        assertTrue(ll.set(1, 50));
+        assertEquals(Integer.valueOf(50), ll.get(1));
+        assertTrue(ll.set(1, 50));
+    }
+    
+    @Test
+    public void testAdd_NegativeIndex(){
+        
+    }
+    
+    @Test
+    public void testAdd_IndexGreaterThanLength(){
+        
+    }
+    
+    @Test
+    public void testAdd_AddToFirst(){
+        
+    }
+    
+    @Test
+    public void testAdd_AddToLast(){
+        
+    }
+    
+    @Test
+    public void testAdd_AddtoMiddle(){
+        
+    }
 }

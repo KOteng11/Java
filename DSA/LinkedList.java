@@ -56,7 +56,7 @@ public class LinkedList<E> implements ListInterface<E>
         @return True
     */
     public boolean isEmpty(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        return head == null;
     }
     
     /**
@@ -97,10 +97,22 @@ public class LinkedList<E> implements ListInterface<E>
         @return The first element from the list
     */
     public E removeFirst(){
-        if (length == 0){
+        E temp = pollFirst();
+        if (temp == null){
             throw new NoSuchElementException("LinkedList is empty.");
         }
-        
+        return temp;
+    }
+    
+    /**
+        pollFirst method removes and return the first element from the list.
+        returns null if list is empty.
+        @return The first element from the list
+    */
+    public E pollFirst(){
+        if (length == 0){
+            return null;
+        }
         Node<E> temp = head;
         if (length == 1){
             head = null;
@@ -114,20 +126,30 @@ public class LinkedList<E> implements ListInterface<E>
     }
     
     /**
-        pollFirst method removes and return the first element from the list.
-        returns null if list is empty.
-        @return The first element from the list
-    */
-    public E pollFirst(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
-    }
-    
-    /**
         removeLast method removes and return the last element from the list
         @return The last element from the list
     */
     public E removeLast(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        if (length == 0){
+            throw new NoSuchElementException("LinkedList is empty.");
+        }
+        Node<E> temp = tail;
+        if(length == 1){
+            head = null;
+            tail = null;
+        }else{
+            Node<E> pre = head;
+            
+            while (pre.next.next != null){
+                pre = pre.next;
+            }
+            
+            tail = pre;
+            pre.next = null;
+        }
+        length--;
+        
+        return temp.value;        
     }
     
     /**
@@ -138,12 +160,16 @@ public class LinkedList<E> implements ListInterface<E>
         @throws IndexOutOfBoundsException if index negative 0 or >= length
     */
     public E get(int index){
-        return getNode(index).value;
+        Node<E> temp = getNode(index);
+        if (temp == null){
+            throw new IndexOutOfBoundsException("Invalid index."); 
+        }
+        return temp.value;
     }
     
     private Node<E> getNode(int index){
         if (index < 0 || index >= length){
-            throw new IndexOutOfBoundsException("Invalid index.");
+            return null;
         }
         Node<E> temp = head;
         for(int i = 0; i < index; i++){
@@ -158,7 +184,11 @@ public class LinkedList<E> implements ListInterface<E>
         exception if the list is empty.
     */
     public E getFirst(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        Node<E> temp = getNode(0);
+        if (temp == null){
+            throw new NoSuchElementException("LinkedList is empty.");
+        }
+        return temp.value;
     }
     
     /**
@@ -166,7 +196,11 @@ public class LinkedList<E> implements ListInterface<E>
         exception if the list is empty
     */
     public E getLast(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        Node<E> temp = getNode(length-1);
+        if (temp == null){
+            throw new NoSuchElementException("LinkedList is empty.");
+        }
+        return temp.value;
     }
     
     /**
@@ -175,7 +209,12 @@ public class LinkedList<E> implements ListInterface<E>
         @param element The element to insert
     */
     public boolean set(int index, E element){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        Node<E> temp = getNode(index);
+        if (temp != null){
+            temp.value = element;
+            return true;
+        }
+        return false;
     }
     
     
