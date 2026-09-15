@@ -248,26 +248,62 @@ public class ListTest
     
     @Test
     public void testAdd_NegativeIndex(){
-        
+        assertThrows(IndexOutOfBoundsException.class, ()->{
+            ll.add(-1, 10);
+        });
     }
     
     @Test
     public void testAdd_IndexGreaterThanLength(){
-        
+        assertThrows(IndexOutOfBoundsException.class, ()->{
+            ll.add(1, 10);
+        });
     }
     
     @Test
-    public void testAdd_AddToFirst(){
-        
+    public void testAdd_AddToFirstOnEmptyList(){
+        ll.add(0, 5);
+        assertEquals(Integer.valueOf(5), ll.get(0));
+        assertEquals(1, ll.length());
     }
     
     @Test
-    public void testAdd_AddToLast(){
-        
+    public void testAdd_AddToFirstWithTwoElements(){
+        ll.addFirst(8);
+        ll.addLast(15);
+        assertEquals(2, ll.length());
+        ll.add(0, 6);
+        assertEquals(3, ll.length());
+        assertEquals(Integer.valueOf(6), ll.get(0));
     }
     
     @Test
-    public void testAdd_AddtoMiddle(){
-        
+    public void testAdd_AddToLastOnEmptyList(){
+        ll.add(0, 5);
+        assertEquals(Integer.valueOf(5), ll.get(0));
+        assertEquals(1, ll.length());
+    }
+    
+    @Test
+    public void testAdd_AddToLastWithTwoElements(){
+        ll.addFirst(8);
+        ll.addFirst(10);
+        assertEquals(2, ll.length());
+        ll.add(ll.length(), 9);
+        assertEquals(3, ll.length());
+        assertEquals(Integer.valueOf(9), ll.get(2));
+    }
+
+    
+    @Test
+    public void testAdd_AddToMiddle(){
+        ll.addFirst(10);
+        ll.addLast(6);
+        ll.addLast(15);
+        ll.addLast(3);
+        assertEquals(4, ll.length());
+        ll.add(2, 23);
+        assertEquals(5, ll.length());
+        assertEquals(Integer.valueOf(23), ll.get(2));
     }
 }

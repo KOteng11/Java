@@ -224,7 +224,23 @@ public class LinkedList<E> implements ListInterface<E>
         @param element The element to insert
     */
     public void add(int index, E element){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        if (index < 0 || index > length){
+            throw new IndexOutOfBoundsException("Invalid Index.");
+        }
+        if (index == 0){
+            addFirst(element);
+            return;
+        }
+        if (index == length){
+            addLast(element);
+            return;
+        }
+        
+        Node<E> newNode = new Node<>(element);
+        Node<E> temp = getNode(index - 1);
+        newNode.next = temp.next;
+        temp.next = newNode;
+        length++;
     }
     
     /**
