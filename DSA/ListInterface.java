@@ -90,23 +90,11 @@ public interface ListInterface<E> extends Collection<E>
     E peekLast();
     
     /**
-        printList method
-    */
-    void printList();
-    
-    /**
         indexOf method returns the first index of an 
         element in the list.
         @param e The element to get the index of.
         @return The index of an element
     */
     int indexOf(E e);
-    
-    /**
-        contains method returns true if this list contains the spefied element.
-        @param o The object to remove
-        @return True
-    */
-    boolean contains(Object o);
     
 }

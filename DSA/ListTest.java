@@ -306,4 +306,192 @@ public class ListTest
         assertEquals(5, ll.length());
         assertEquals(Integer.valueOf(23), ll.get(2));
     }
+    
+    @Test
+    public void testRemove_ThrowsException(){
+        assertThrows(IndexOutOfBoundsException.class, ()->{
+            ll.remove(0);
+        });
+    }
+    
+    @Test
+    public void testRemove_FirstElement(){
+        ll.addFirst(3);
+        ll.addLast(15);
+        ll.addLast(8);
+        assertEquals(3, ll.length());
+        assertEquals(Integer.valueOf(3), ll.remove(0));
+        assertEquals(2, ll.length());
+    }
+    
+    @Test
+    public void testRemove_LastElement(){
+        ll.addFirst(3);
+        ll.addLast(15);
+        ll.addLast(8);
+        assertEquals(3, ll.length());
+        assertEquals(Integer.valueOf(8), ll.remove(ll.length() - 1));
+        assertEquals(2, ll.length());
+    }
+   
+    @Test
+    public void testRemove_SecondIndex(){
+        ll.addFirst(3);
+        ll.addLast(9);
+        ll.addLast(7);
+        ll.addLast(12);
+        ll.addLast(20);
+        assertEquals(5, ll.length());
+        assertEquals(Integer.valueOf(7), ll.remove(2));
+        assertEquals(4, ll.length());
+    }
+    
+    @Test
+    public void testReverse_EmptyList(){
+        ll.reverse();
+        assertEquals(0, ll.length());
+    }
+    
+    @Test
+    public void testReverse_OneElement(){
+        ll.addLast(3);
+        ll.reverse();
+        assertEquals(Integer.valueOf(3), ll.get(0));
+        assertEquals(1, ll.length());
+    }
+    
+    @Test
+    public void testReverse_TwoElements(){
+        ll.addLast(3);
+        ll.addLast(10);
+        ll.reverse();
+        assertEquals(Integer.valueOf(10), ll.get(0));
+        assertEquals(Integer.valueOf(3), ll.get(1));
+    }
+    
+    @Test
+    public void testReverse_MultipleElements(){
+        ll.addLast(3);
+        ll.addLast(2);
+        ll.addLast(15);
+        ll.addLast(34);
+        ll.addLast(19);
+        ll.reverse();
+        assertEquals(Integer.valueOf(19), ll.get(0));
+        assertEquals(Integer.valueOf(34), ll.get(1));
+        assertEquals(Integer.valueOf(15), ll.get(2));
+        assertEquals(Integer.valueOf(2), ll.get(3));
+        assertEquals(Integer.valueOf(3), ll.get(4));
+    }
+    
+    @Test
+    public void testReverse_TailIsCorrect(){
+        ll.addLast(1);
+        ll.addLast(2);
+        ll.addLast(3);
+        ll.reverse();
+        ll.addLast(99);
+        assertEquals(Integer.valueOf(99), ll.get(ll.length()-1));
+        assertEquals(Integer.valueOf(1), ll.get(ll.length()-2));
+    }
+    
+    @Test
+    public void testPeekFirst_EmptyList(){
+        assertNull(ll.peekFirst());
+    }
+    
+    @Test
+    public void testPeekFirst_OneElement(){
+        ll.addLast(2);
+        assertEquals(Integer.valueOf(2), ll.get(0));
+    }
+    
+    @Test
+    public void testPeekFirst_MultipleElements(){
+        ll.addLast(3);
+        ll.addLast(5);
+        ll.addLast(10);
+        assertEquals(Integer.valueOf(3), ll.get(0));
+    }
+    
+    @Test
+    public void testPeekLast_EmptyList(){
+        assertNull(ll.peekLast());
+    }
+    
+    @Test
+    public void testPeekLast_OneElement(){
+        ll.addLast(2);
+        assertEquals(Integer.valueOf(2), ll.get(0));
+    }
+    
+    @Test
+    public void testPeekLast_MultipleElement(){
+        ll.addLast(3);
+        ll.addLast(5);
+        ll.addLast(9);
+        assertEquals(Integer.valueOf(9), ll.get(ll.length() - 1));
+    }
+    
+    @Test
+    public void testIndexOf_IndexNotFound(){
+        ll.addLast(5);
+        ll.addLast(3);
+        ll.addLast(9);
+        ll.addLast(6);
+        ll.addLast(11);
+        assertEquals(-1, ll.indexOf(10));
+    }
+    
+    
+    @Test
+    public void testIndexOf_FirstElement(){
+        ll.addLast(5);
+        ll.addLast(3);
+        ll.addLast(9);
+        ll.addLast(6);
+        ll.addLast(11);
+        assertEquals(0, ll.indexOf(5));
+    }
+    
+    @Test 
+    public void testIndexOf_LastElement(){
+        ll.addLast(5);
+        ll.addLast(3);
+        ll.addLast(9);
+        ll.addLast(6);
+        ll.addLast(11);
+        assertEquals(4, ll.indexOf(11));
+    }
+    
+    @Test
+    public void testIndexOf_MiddleElement(){
+        ll.addLast(5); 
+        ll.addLast(3);
+        ll.addLast(9);
+        ll.addLast(6);
+        ll.addLast(11);
+        assertEquals(2, ll.indexOf(9));
+    }
+    
+    @Test
+    public void testContains_False(){
+        ll.addLast(5); 
+        ll.addLast(3);
+        ll.addLast(9);
+        ll.addLast(6);
+        ll.addLast(11);
+        assertFalse(ll.contains(15));
+    }
+    
+    @Test
+    public void testContains_True(){
+        ll.addLast(5); 
+        ll.addLast(3);
+        ll.addLast(9);
+        ll.addLast(6);
+        ll.addLast(11);
+        assertTrue(ll.contains(9));
+    }
+
 }

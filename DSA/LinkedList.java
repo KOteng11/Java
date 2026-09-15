@@ -2,6 +2,7 @@ package datastructures;
 
 import interfaces.ListInterface;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class LinkedList<E> implements ListInterface<E>
 {
@@ -47,6 +48,7 @@ public class LinkedList<E> implements ListInterface<E>
     /**
         length method returns the number of elements in this list
     */
+    @Override
     public int length(){
         return length;
     }
@@ -55,6 +57,7 @@ public class LinkedList<E> implements ListInterface<E>
         isEmpty method returns true if the list is empty
         @return True
     */
+    @Override
     public boolean isEmpty(){
         return head == null;
     }
@@ -63,6 +66,7 @@ public class LinkedList<E> implements ListInterface<E>
         addLast method appends the specified element to the end of this list.
         @param e The element to be added to the end of the list
     */
+    @Override
     public void addLast(E e){
         Node<E> newNode = new Node<>(e);
         if (length == 0){
@@ -79,6 +83,7 @@ public class LinkedList<E> implements ListInterface<E>
         addFirst method inserts the specified element at the beginning of this list.
         @param e The element to be added to the beginning of the list
     */
+    @Override
     public void addFirst(E e){
         Node<E> newNode = new Node<>(e);
         if (length == 0){
@@ -96,6 +101,7 @@ public class LinkedList<E> implements ListInterface<E>
         throws and exception if list is empty.
         @return The first element from the list
     */
+    @Override
     public E removeFirst(){
         E temp = pollFirst();
         if (temp == null){
@@ -109,6 +115,7 @@ public class LinkedList<E> implements ListInterface<E>
         returns null if list is empty.
         @return The first element from the list
     */
+    @Override
     public E pollFirst(){
         if (length == 0){
             return null;
@@ -129,6 +136,7 @@ public class LinkedList<E> implements ListInterface<E>
         removeLast method removes and return the last element from the list
         @return The last element from the list
     */
+    @Override
     public E removeLast(){
         if (length == 0){
             throw new NoSuchElementException("LinkedList is empty.");
@@ -159,6 +167,7 @@ public class LinkedList<E> implements ListInterface<E>
         @return The element at the specified position
         @throws IndexOutOfBoundsException if index negative 0 or >= length
     */
+    @Override
     public E get(int index){
         Node<E> temp = getNode(index);
         if (temp == null){
@@ -183,6 +192,7 @@ public class LinkedList<E> implements ListInterface<E>
         getFirst method returns the first element of the list and throws an 
         exception if the list is empty.
     */
+    @Override
     public E getFirst(){
         Node<E> temp = getNode(0);
         if (temp == null){
@@ -195,6 +205,7 @@ public class LinkedList<E> implements ListInterface<E>
         getLast method returns the last element of the list and throws an
         exception if the list is empty
     */
+    @Override
     public E getLast(){
         Node<E> temp = getNode(length-1);
         if (temp == null){
@@ -208,6 +219,7 @@ public class LinkedList<E> implements ListInterface<E>
         @param index The position of the list
         @param element The element to insert
     */
+    @Override
     public boolean set(int index, E element){
         Node<E> temp = getNode(index);
         if (temp != null){
@@ -223,6 +235,7 @@ public class LinkedList<E> implements ListInterface<E>
         @param index The position of the list
         @param element The element to insert
     */
+    @Override
     public void add(int index, E element){
         if (index < 0 || index > length){
             throw new IndexOutOfBoundsException("Invalid Index.");
@@ -247,36 +260,64 @@ public class LinkedList<E> implements ListInterface<E>
         remove method removes the element at the specified position in this list.
         @param index The specified position in the list.
     */
+    @Override
     public E remove(int index){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        if (index < 0 || index >= length){
+            throw new IndexOutOfBoundsException("Invalid index.");
+        }
+        if (index == 0){
+            return removeFirst();
+        }
+        if (index == length - 1){
+            return removeLast();
+        }
+        Node<E> pre = getNode(index - 1);
+        Node<E> temp = pre.next;
+        pre.next = temp.next;
+        temp.next = null;
+        length--;
+        return temp.value;
     }
     
     /**
         reverse method reverse the order of the list
     */
+    @Override
     public void reverse(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        Node<E> temp = head;
+        head = tail;
+        tail = temp;
+        Node<E> before = null;
+        Node<E> after;
+        
+        while (temp != null){
+            after = temp.next;
+            temp.next = before;
+            before = temp;
+            temp = after;
+        }
     }
     
     /**
         peekFirst returns the first element in the list
     */
+    @Override
     public E peekFirst(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        if (length == 0){
+            return null;
+        }
+        return get(0);
     }
     
     /**
         peekLast method returns the last element in the list
     */
+    @Override
     public E peekLast(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
-    }
-    
-    /**
-        printList method
-    */
-    public void printList(){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        if(length == 0){
+            return null;
+        }
+        return get(length - 1);
     }
     
     /**
@@ -285,8 +326,19 @@ public class LinkedList<E> implements ListInterface<E>
         @param e The element to get the index of.
         @return The index of an element
     */
+    @Override
     public int indexOf(E e){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        Node<E> temp = head;
+        int count = 0;
+        
+        while(temp != null){
+            if (temp.value == e){
+                return count;
+            }
+            ++count;
+            temp = temp.next;
+        }
+        return -1;
     }
     
     /**
@@ -294,7 +346,18 @@ public class LinkedList<E> implements ListInterface<E>
         @param o The object to remove
         @return True
     */
+    @Override
     public boolean contains(Object o){
-        throw new UnsupportedOperationException("Method Not Implemented.");
+        Node<E> temp = head;
+        boolean isFound = false;
+        
+        while(temp != null && !isFound){
+            if(Objects.equals(temp.value, o))
+            {
+                isFound = true;
+            }
+            temp = temp.next;
+        }
+        return isFound;
     }
 }
