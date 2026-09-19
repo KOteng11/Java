@@ -332,7 +332,7 @@ public class LinkedList<E> implements ListInterface<E>
         int count = 0;
         
         while(temp != null){
-            if (temp.value == e){
+            if (Objects.equals(temp.value, e)){
                 return count;
             }
             ++count;
@@ -355,8 +355,9 @@ public class LinkedList<E> implements ListInterface<E>
             if(Objects.equals(temp.value, o))
             {
                 isFound = true;
+            }else{
+                temp = temp.next;
             }
-            temp = temp.next;
         }
         return isFound;
     }
