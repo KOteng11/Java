@@ -1,7 +1,0 @@
-1. Avg runtime for BubbleSort: 3324590 and Time Complexity is O(n^2)
-2. Avg runtime for SelectionSort: 2729240 and Time Complexity is O(n^2)
-3. Avg run for InsertionSort: 1656530 and Time Complexity is O(n^2)
-4. I expected BubbleSort to have the worse run time since it has the highest
-   number of swaps followed by SelectionSort and then InsertionSort.
-5. Avg runtime for altered InsertionSort: 1378530 and Time Complexity is O(n^2).
-   Conclusion: THe performance for the altered InsertionSort algorithm improved the performance
