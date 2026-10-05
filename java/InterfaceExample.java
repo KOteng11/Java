@@ -50,6 +50,8 @@ class SmartPhone extends Phone implements ICamera, IMusicPlayer{
 
 public class InterfaceExample{
     public static void main(String[] args){
-        
+        IMusicPlayer s = new SmartPhone();
+        s.play();
+        s.stop();
     }
 }
