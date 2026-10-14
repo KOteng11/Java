@@ -34,7 +34,7 @@ public class StringArrayObject{
     
     // isValidIndex method
     private boolean isValidIndex(int index){ // O(1)
-        return index >= 0 && index < size;
+        return index >= 0 && index <= size;
     }
     
     // add method
