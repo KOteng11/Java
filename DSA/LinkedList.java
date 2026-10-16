@@ -1,4 +1,4 @@
-package datastructures;
+//package datastructures;
 
 import interfaces.ListInterface;
 import java.util.NoSuchElementException;
@@ -63,7 +63,7 @@ public class LinkedList<E> implements ListInterface<E>
     }
     
     /**
-        addLast method appends the specified element to the end of this list.
+        addLast method addFirsts the specified element to the end of this list.
         @param e The element to be added to the end of the list
     */
     @Override
@@ -360,5 +360,55 @@ public class LinkedList<E> implements ListInterface<E>
             }
         }
         return isFound;
+    }
+    
+    public void removeDuplicate(){
+        Node<E> pre = head;
+        Node<E> tmp = pre.next;
+        
+        while (tmp != null){
+            if (pre.value == tmp.value){
+                pre.next = tmp.next;
+                tmp.next = null;
+                tmp = pre.next;
+            }else{
+                pre = tmp;
+                tmp = tmp.next;
+            }
+        }
+    }
+    
+    public void printList(){
+        if (isEmpty()){
+            System.out.println("LinkedList is empty.");
+            return;
+        }
+        Node<E> temp = head;
+        while (temp != null){
+            System.out.print(temp.value + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+    
+    
+    public static void main(String[] args){
+        LinkedList<Integer> ll = new LinkedList<>(10);
+        /**
+        ll.addFirst(10);
+        ll.addLast(20);
+        ll.addLast(20);
+        ll.addLast(20);
+        ll.addLast(30);
+        ll.addLast(40);
+        ll.addLast(40);
+        ll.addLast(40);
+        ll.addLast(40);
+        ll.addLast(50);
+        */
+        ll.printList();
+        System.out.println("Removing duplicates...");
+        ll.removeDuplicate();
+        ll.printList();
     }
 }
