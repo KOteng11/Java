@@ -1,4 +1,4 @@
-package arrayclass;
+ package arrayclass;
 
 public class ArrayClass{
     private static final int DEFAULT_CAPACITY = 10;

@@ -1,40 +1,46 @@
 package multithreading;
 
-class My implements Runnable{
-    @Override
-    public void run(){
-        int i = 1;
-        while(true){
-            System.out.println(i + " Hello");
-            i++;
+class MyData{
+    synchronized public void display(String str){
+        for (int i = 0; i < str.length(); i++){
+            System.out.println(str.charAt(i));
+            try {Thread.sleep(100);}catch(Exception e){};
         }
+        
     }
 }
 
-
-class MyThread extends Thread{
-    @Override
+class MyThread1 extends Thread{
+    MyData d;
+    
+    MyThread1(MyData d){
+        this.d = d;
+    }
+    
     public void run(){
-        int i = 1;
-        while(true){
-            System.out.println(i + " Hello");
-            i++;
-        }
+        d.display("Hello World");
     }
 }
 
+class MyThread2 extends Thread{
+    MyData d;
+    
+    MyThread2(MyData d){
+        this.d = d;
+    }
+    
+    public void run(){
+        d.display("Welcome");
+    }
+}
 
 public class Multithreading{
     public static void main(String[] args){
-        My m = new My();
-        Thread t = new Thread(m);
-        //MyThread t = new MyThread();
-        t.start();
+        MyData d = new MyData();
         
-        int i = 0;
-        
-        while (true){
-            System.out.println(++i + " World");
-        }
+        MyThread1 t1 = new MyThread1(d);
+        MyThread2 t2 = new MyThread2(d);
+        t1.start();
+        t2.start();
     }
 }
