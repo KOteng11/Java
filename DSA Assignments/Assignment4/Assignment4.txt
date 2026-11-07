@@ -1,0 +1,8 @@
+1. Having iterators is important for data structures / collections because they enable
+   a more efficient way to trasverse through the entries in a list.
+   
+2. it is inefficient to iterate over a linked list without an iterator. The cost of such
+   iteration is O(n^2) vs. using an iterator which is O(n).
+
+3. It is flexible because we can utilize polymorphism. This means we can utilize it 
+   for our ArrayList and Circular queue.

@@ -1,0 +1,9 @@
+1.LinkedListQueue was faster on the first execution for enqueue and CircularQueue was faster for dequeue
+2. The time for CircularQueue: Enqueue took 3739700 ns. and Dequeue took 1643500 ns.
+   The time for LinkedListQueue: Enqueue took 2521800 ns. and Dequeue took 1232400 ns.
+   Enqueue resizes capacity for CircularQueue compared to LinkedListQueue which does not.
+3. The first execution had not yet been cached so it took longer and afterwards, code is cached in CPU, hence,
+   subsiquent execution is faster.
+4.Yes, it was faster.
+  The time for CircularQueue: Enqueue took 1283100 ns. and Dequeue took 684200 ns.
+  The time for LinkedListQueue: Enqueue took 813100 ns. and Dequeue took 886700 ns.

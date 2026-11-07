@@ -1,0 +1,11 @@
+1. Avg time to run Mergesort: 88263 nanoseconds
+
+2. The number of copies for MergeSort is less than the number of swaps for BubbleSort 
+   and InsertionSort but greater than the number of swaps for SelectionSort.
+   This is because the number of copies for MergeSort is around 1328 compared to the number of swaps for BubbleSort,
+   SelectionSort and InsertionSort which has around 2595, 99, and 2165 swaps respectively.
+
+3. Yes. The results are in line with my expections because the complexities
+   for the previous algorithms like Bubblesort, SelectionSort and InsertionSort
+   are O(n^2) but the complexity of the mergeSort algorithm is O(nlogn) which is
+   better than O(n^2).
