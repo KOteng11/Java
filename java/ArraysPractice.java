@@ -4,29 +4,33 @@ import java.util.Arrays;
 
 public class ArraysPractice{
     public static void main(String[] args){
-        int[] A = new int[5];
-        
-        for (int i = 0; i < 10; i++){
-            if (isFull(i, A.length - 1)){
-                A = increaseCapacity(A);
+        int[] B = {1, 2, 3, 4, 6, 8, 9, 10, 11, 12};
+        int[] C = {3, 6, 8, 8, 10, 12, 15, 15, 15, 20};
+        findDuplicates(C);
+    }
+    
+    public static void findMissingElement(int[] A){
+        int diff = A[1] - A[0];
+        for (int i = 0; i < A.length - 1; i++){
+            if (A[i+1]-A[i] != diff){
+                int gap = A[i+1] - A[i];
+                int curValue = A[i];
+                for (int j = 0; j < gap - 1; j++){
+                    System.out.println(curValue + diff);
+                    curValue += diff;
+                }
             }
-          A[i] = i + 2;   
         }
-        
-        System.out.println(Arrays.toString(A));
     }
     
-    public static int[] increaseCapacity(int[] arr){
-        int[] temp = new int[arr.length * 2 + 1];
+    public static void findDuplicates(int[] A){
+        int lastDuplicate = 0;
         
-        for (int i = 0; i < arr.length; i++){
-            temp[i] = arr[i];
+        for (int i = 0; i < A.length - 1; i++){
+            if (A[i] == A[i+1] && A[i] != lastDuplicate){
+                System.out.println(A[i]);
+                lastDuplicate = A[i];
+            }
         }
-        
-        return temp;
-    }
-    
-    public static boolean isFull(int i, int capacity){
-        return i == capacity;
     }
 }

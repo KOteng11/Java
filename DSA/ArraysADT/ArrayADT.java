@@ -124,6 +124,71 @@ public class ArrayADT<T extends Comparable<T>>{
         return true;
     }
     
+    public T get(int index){
+        if (!isValidElement(index)){
+            throw new IndexOutOfBoundsException("Invalid index.");
+        }
+        return values[index];
+    }
+    
+    public void set(int index, T value){
+        if (!isValidElement(index)){
+            throw new IndexOutOfBoundsException("Invalid index.");
+        }
+        values[index] = value;
+    }
+    
+    public T max(){
+        T max = values[0];
+        for (int i = 0; i < size; i++){
+            if (values[i].compareTo(max) == 1){
+                max = values[i];
+            }
+        }
+        return max;
+    }
+    
+    public T min(){
+        T min = values[0];
+        for (int i = 0; i < size; i++){
+            if (values[i].compareTo(min) == -1){
+                min = values[i];
+            }
+        }
+        return min;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public void reverse(){
+        Comparable[] temp = new Comparable[size];
+        for (int i = size-1, j=0; i >= 0; i--, j++){
+            temp[j] = values[i];
+        }
+        values = (T[])temp;
+    }
+    
+    public void reverse2(){
+        for (int i = 0, j = size-1; i < j; i++, j--){
+            swap(i, j);
+        }
+    }
+    
+    
+    /**
+    public int sum(){
+        int total = 0;
+        
+        for (int i = 0; i < size; i++){
+            total += values[i];
+        }
+        
+        return total;
+    }
+    
+    public double avg(){
+        return (double)sum()/ size;
+    }
+    */
     
     /**
     public int binarySearch(T key){
@@ -152,9 +217,11 @@ public class ArrayADT<T extends Comparable<T>>{
         //A.add(12);
         
         for (int i = 0; i < 10; i++){
-            A.add(rand.nextInt(50 - 25 + 1)+25);
+             A.add(rand.nextInt(50 - 25 + 1)+25);
         }
         
-        System.out.println(A.isSorted());
+        A.display();
+        A.reverse2();
+        A.display();
     }
 }
