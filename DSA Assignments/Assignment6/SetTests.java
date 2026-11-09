@@ -6,11 +6,11 @@ import org.junit.Test;
 public class SetTests {
 
   private static BigIntSet getNewSet() {
-    return new LinearProbingHashtable();
+    return new ChainedHashtable();
   }
 
   private static BigIntSet getNewSet(int initialSize) {
-    return new LinearProbingHashtable(initialSize);
+    return new ChainedHashtable(initialSize);
   }
   
   @Test

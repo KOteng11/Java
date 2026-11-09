@@ -3,7 +3,7 @@ import java.math.BigInteger;
 public class ChainedHashtable implements BigIntSet{
   private int size = 0;
   private Node[] table;
-  private static final int DEFAULT_CAPACITY = 11;
+  private static final int DEFAULT_CAPACITY = 20;
   private static final double MAX_LOAD_FACTOR = 0.5;
   
   class Node{
