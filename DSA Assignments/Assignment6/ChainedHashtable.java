@@ -29,21 +29,20 @@ public class ChainedHashtable implements BigIntSet{
   }
   
   public void add(BigInteger value) {
-      if (1.0 * size / table.length > MAX_LOAD_FACTOR){
+      if (isFull()){
           increaseCapacity();
       }
+      
       int index = address(value);
       Node newNode = new Node(value);
-      if (table[index] == null){
-          table[index] = newNode;
-      }else{
-          Node temp = table[index];
-          while(temp.next != null){
-              temp = temp.next;
-          }
-          temp.next = newNode;
-      }
+      newNode.next = table[index];
+      table[index] = newNode;
+
       size++;
+  }
+  
+  public boolean isFull(){
+      return 1.0 * size / table.length > MAX_LOAD_FACTOR;
   }
   
   public void increaseCapacity(){
@@ -51,9 +50,35 @@ public class ChainedHashtable implements BigIntSet{
   }
   
   public void remove(BigInteger value) {
+      int index = address(value);
+      Node temp = table[index];
+      Node pre = null;
+      
+      while (temp != null){
+          if (value == temp.value){
+              if (pre == null){
+                  table[index] = temp.next;
+              }else{
+                  pre.next = temp.next;
+              }
+              temp.next = null;
+              size--;
+              return;
+          }
+          pre = temp;
+          temp = temp.next;
+      }
   }
   
   public boolean contains(BigInteger value) {
+    int index = address(value);
+    Node temp = table[index];
+    while(temp != null){
+        if (temp.value.equals(value)){
+            return true;
+        }
+        temp = temp.next;
+    }
     return false;
   }
   
