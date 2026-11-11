@@ -3,7 +3,7 @@ import java.math.BigInteger;
 public class ChainedHashtable implements BigIntSet{
   private int size = 0;
   private Node[] table;
-  private static final int DEFAULT_CAPACITY = 11;
+  private static final int DEFAULT_CAPACITY = 20;
   private static final double MAX_LOAD_FACTOR = 0.5;
   
   class Node{
@@ -28,16 +28,29 @@ public class ChainedHashtable implements BigIntSet{
       return Math.abs(value.hashCode() % table.length);
   }
   
-  public void add(BigInteger value) {
+  public void add(BigInteger value){
       if (isFull()){
           increaseCapacity();
       }
       
       int index = address(value);
       Node newNode = new Node(value);
-      newNode.next = table[index];
-      table[index] = newNode;
 
+      if (table[index] == null){
+          table[index] = newNode;
+      }else{
+          Node temp = table[index];
+          Node pre = null;
+          while(temp != null){
+              if (temp.value.equals(value)){
+                  return;
+              }
+              pre = temp;
+              temp = temp.next;
+          }
+          pre.next = newNode;
+      }
+      
       size++;
   }
   
@@ -45,14 +58,50 @@ public class ChainedHashtable implements BigIntSet{
       return 1.0 * size / table.length > MAX_LOAD_FACTOR;
   }
   
-  public void increaseCapacity(){
-      
+  private void increaseCapacity(){
+      Node[] old = table;
+      table = new Node[old.length * 2 + 1];
+      size = 0;
+      for (int i = 0; i < old.length; i++){
+          Node temp = old[i];
+          while (temp != null){
+              add(temp.value);
+              temp = temp.next;
+          }
+      }
+
   }
   
   public void remove(BigInteger value) {
+      int index = address(value);
+      Node temp = table[index];
+      Node pre = null;
+      
+      while (temp != null){
+          if (temp.value.equals(value)){
+              if (pre == null){
+                  table[index] = temp.next;
+              }else{
+                  pre.next = temp.next;
+              }
+              temp.next = null;
+              size--;
+              return;
+          }
+          pre = temp;
+          temp = temp.next;
+      }
   }
   
   public boolean contains(BigInteger value) {
+    int index = address(value);
+    Node temp = table[index];
+    while(temp != null){
+        if (temp.value.equals(value)){
+            return true;
+        }
+        temp = temp.next;
+    }
     return false;
   }
   
