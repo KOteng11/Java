@@ -28,16 +28,28 @@ public class ChainedHashtable implements BigIntSet{
       return Math.abs(value.hashCode() % table.length);
   }
   
-  public void add(BigInteger value) {
+  
+  public void add(BigInteger value){
       if (isFull()){
           increaseCapacity();
       }
-      
       int index = address(value);
       Node newNode = new Node(value);
-      newNode.next = table[index];
-      table[index] = newNode;
-
+      if (table[index] == null){
+          table[index] = newNode;
+      }else{
+          Node temp = table[index];
+          Node pre = null;
+          while(temp != null){
+              if (temp.value.equals(value)){
+                  return;
+              }
+              pre = temp;
+              temp = temp.next;
+          }
+          pre.next = newNode;
+      }
+      
       size++;
   }
   
@@ -45,8 +57,17 @@ public class ChainedHashtable implements BigIntSet{
       return 1.0 * size / table.length > MAX_LOAD_FACTOR;
   }
   
-  public void increaseCapacity(){
-      
+  private void increaseCapacity(){
+      Node[] old = table;
+      table = new Node[old.length * 2 + 1];
+      size = 0;
+      for (int i = 0; i < old.length; i++){
+          Node temp = old[i];
+          while (temp != null){
+              add(temp.value);
+              temp = temp.next;
+          }
+      }
   }
   
   public void remove(BigInteger value) {
@@ -55,7 +76,7 @@ public class ChainedHashtable implements BigIntSet{
       Node pre = null;
       
       while (temp != null){
-          if (value == temp.value){
+          if (temp.value.equals(value)){
               if (pre == null){
                   table[index] = temp.next;
               }else{
