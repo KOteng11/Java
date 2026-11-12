@@ -3,8 +3,9 @@ import java.math.BigInteger;
 public class ChainedHashtable implements BigIntSet{
   private int size = 0;
   private Node[] table;
-  private static final int DEFAULT_CAPACITY = 20;
-  private static final double MAX_LOAD_FACTOR = 0.5;
+  private static final int DEFAULT_CAPACITY = 19;
+  private static final double MAX_LOAD_FACTOR = 0.75;
+  private long count = 0; // Added this
   
   class Node{
       BigInteger value;
@@ -39,6 +40,7 @@ public class ChainedHashtable implements BigIntSet{
       if (table[index] == null){
           table[index] = newNode;
       }else{
+          ++count; // Added this
           Node temp = table[index];
           Node pre = null;
           while(temp != null){
@@ -52,6 +54,11 @@ public class ChainedHashtable implements BigIntSet{
       }
       
       size++;
+  }
+  
+  // Added this
+  public long getCollisionCount(){
+      return count;
   }
   
   public boolean isFull(){
@@ -119,8 +126,5 @@ public class ChainedHashtable implements BigIntSet{
   public int size() {
     return size;
   }
-  
-  public static void main(String[] args){
-      
-  }
+
 }

@@ -1,0 +1,10 @@
+1. ChainedHashtable took 39284299ms and LinearProbingHashtable took 53792868ms. 
+   Therefore, ChainedHashtable is faster with my implementation
+   
+2. I got the answer i did in question 1 because separate chaining handles collision easier than linear probing. 
+   separate chaining adds a new node to the existing nodes when there is collision unlike linear probing which
+   looks for an empty spot so store the value when there is a collision. Also, Linear probing suffers from
+   primary clustering and deletion is more complicated than deletion in separate chaining.
+   
+3. In separate chaining, elements that collide are stored together in a linkedlist using the same hashtable address
+   where as colliding elements in a linear probing are moved to the next available position in the hash table.

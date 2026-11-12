@@ -111,17 +111,22 @@ public class SetTests {
   @Test
   public void instrumentAdds() {
     BigIntSet set = getNewSet(11);
+    //ChainedHashtable set = new ChainedHashtable(11); // Added this
     long totalAddTime = 0;
+    long count = 0;
     for (int i = 0; i < 10; i++) {
       Random random = new Random();
       for (int k = 0; k < 10000; k++) {
         BigInteger bigint = new BigInteger(128, random);
         long now = System.nanoTime();
         set.add(bigint);
+        //count += set.getCollisionCount(); // Added this
         totalAddTime += System.nanoTime() - now;
       }
     }
     System.out.println("Time to add 10k values 10x: ");
     System.out.println("\t" + totalAddTime + "ms");
+    System.out.println("Acumulated number of collisions: "); // Added this
+    //System.out.println("\t" + count); // Added this
   }
 }
