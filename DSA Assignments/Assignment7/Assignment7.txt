@@ -1,0 +1,7 @@
+1. a. There are many comparisons per operation where as the hashtable needs one comparison.
+   b. The order of insertion is in ascending therefore we get an unbalanced tree which
+      is O(n) complexity where as a hashtable is O(1)
+      
+2. a. A tree uses one node per element and grows one element at a time where as a hashtable
+      allocates a new array when it grows and reserves empty buckets to maintain load factor.
+   b. Trees give order. for instance a tree keeps it elements sorted whiles a hashtable has no order
